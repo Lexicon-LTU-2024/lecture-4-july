@@ -1,0 +1,8 @@
+.child {
+  color: rgb(201, 22, 224);
+  text-align: center;
+}
+
+.article.bold.main-color.warning {
+  background-color: yellow;
+}
