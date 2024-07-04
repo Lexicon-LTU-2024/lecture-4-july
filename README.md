@@ -214,16 +214,6 @@ In most cases the search area for these methods are the entire document, and if 
 
 This method returns an element with the specified Id value. It will return null if the element doesn't exists, and if more elements with the same Id exsits in the DOM, the first match will be returned. **Note**, Id should always be unique.
 
-```html
-<div id="main-container">This is the content</div>
-```
-
-```js
-const mainContainer = document.getElementById("main-container");
-
-console.log(mainContainer); // The element will be written out in the console.
-```
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### getElementByClassName ( className ) => [HTMLCollection](#htmlcollection)
@@ -244,62 +234,17 @@ This method returns the first element that matches your given CSS selector. This
 
 If no match is found, this method will throw an error _(SYNTAX_ERROR)_. Or rather if the selector is invalid.
 
-```html
-<div class="item">This is a text item</div>
-<section id="main-section">
-  <p class="para">Lorem Ipsum</p>
-  <p class="para">Lorem Ipsum Lorem Ipsum</p>
-  <p class="para">Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
-  <span class="item">This is a span item inside the section</span>
-</section>
-```
-
-```js
-const item = document.querySelector(".item"); // Search for class name
-const mainSection = document.querySelector("#main-section"); // Search for id
-const p = document.querySelector("p"); // Search for element tag
-
-const nestedItem = mainSection.querySelector(".item"); // This will find the .item inside the section because we have narrowd the search area down the the section itself.
-
-console.log(item);
-console.log(mainSection);
-console.log(p);
-console.log(nestedItem);
-```
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### querySelectorAll ( CSSSelector ) => [NodeList](#nodelist)
 
 This method returns all matches of the specific css selector, and it collects them inside a `NodeList` and returns that `NodeList`.
 
-```js
-const paragraphs = document.querySelectorAll("p"); // Search for the tag
-const paragraphsFromClass = document.querySelectorAll(".para"); // Search for the class
-
-console.log(paragraphs);
-console.log(paragraphsFromClass);
-```
-
-If you want to access a specific p-tag in this list you can always choose it by the index.
-
-```js
-const secondP = paragraphs[1];
-console.log(secondP);
-```
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### window.getComputedStyle ( element ) => CSSStyleDeclaration
 
 This method takes in an argument that is a HTML element and returns a special CSS object, containing all the styles that have been applied to the specific element. This includes, external and internal stylesheets, browser default styles, inherited styles and styles that have been applied on the style attribute.
-
-```js
-const p = document.querySelector(".child");
-const css = window.getComputedStyle(p);
-
-console.log(css.color); // will display the applied color in the console.
-```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -309,21 +254,11 @@ console.log(css.color); // will display the applied color in the console.
 
 This method creates an element node. This method is often used with the `document` since we are create an element to the DOM.
 
-```js
-const article = document.createElement("article"); // Creates an article element
-console.log(article);
-```
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### appendChild ( childNode ) => The appended [node](#nodes)
 
 This method appends a node as the last child of an element.
-
-```js
-const section = document.querySelector("#main-section");
-section.appendChild(article);
-```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -342,40 +277,21 @@ The available positions are:
 - `beforebegin`: Before the element
 - `beforeend`: Before the end of the element (last child)
 
-The element can be created from scratch befor insertion, or we could grap an existing element.
+The element can be created from scratch before insertion, or we could grab an existing element.
 
-```js
-// Created element
-const div = document.createElement("div");
-div.innerText = "This is a created div";
-
-// The element on which to apply the insertAdjecentElement
-const section = document.querySelector("#main-section");
-
-// The insertion
-section.insertAdjacentElement("afterend", div);
-section.insertAdjacentElement("beforebegin", div);
-section.insertAdjacentElement("afterbegin", div);
-section.insertAdjacentElement("beforeend", div);
-```
-
+<details>
+<summary>Observe..</summary>
 An unexpected behaviour happens when we do these two operations after each other. After the first invokation, _("afterend")_, the element is inserted after the section element, which is as expected. But when we do the second invokation with _"beforebegin"_ the element, as expected, is inserted before the section element, but the "previous" element disappears. That is because there is no previous element, it's the same element. Every element in the DOM is unique and if we do several operations on one element it will always move.
+</details>
 
 ### insertAdjacentHTML ( position, html ) => void
 
 This method works exactly the same as `insetAdjacentElement` but with the difference that it accepts a html element as a string instead of some data of the type element.
 
-```js
-// The html on which to apply the insertAdjecentHTML
-const section = document.querySelector("#main-section");
-
-const html = "<p>This is a p tag created from string</p>";
-
-section.insertAdjacentHTML("beforebegin", html);
-section.insertAdjacentHTML("afterend", html);
-```
-
+<details>
+<summary>Observe..</summary>
 In this case the string is not an actual DOM object, so it's not unique in the same was as in the previos example with `insertAdjacentElement`. So by executing these two lines of code, two insertions will be made and both will be visible in the DOM.
+</details>
 
 ## Modifying elements and nodes
 
@@ -383,33 +299,11 @@ In this case the string is not an actual DOM object, so it's not unique in the s
 
 This property sets or gets the `innerHTML` of an element. When we get the innerHTML the actual HTML-tags and its content _(classes, attribute etc)_ is included.
 
-When you set `innerHTML` it will replace all the previous HTML.
-
-```html
-<div class="inner-html-div"></div>
-```
-
-```js
-const innerHTMLDiv = document.querySelector(".inner-html-div");
-innerHTMLDiv.innerHTML = "<p>This is a p-tag inserted with innerHTML</p>";
-```
-
 ### innerText
 
 This property is used to either set or get the text content of an element. If you want to set a value with this property, be careful, because it will replace all innerText with the new value that you give it.
 
 When getting the `innerText` all specific HTML will we ignored.
-
-```html
-<article></article>
-```
-
-```js
-const article = document.querySelector("article");
-article.innerText = "This is an article";
-
-console.log(article); // <article>This is an article</article>
-```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -439,27 +333,11 @@ Most of the times these are used interchangeably but the usage should be based o
 
 This method will return the given value on a specific attribute on an element.
 
-```html
-<img class="image" width="200px" src="assets/background1.jpg" />
-```
-
-```js
-const img = document.querySelector(".image");
-console.log(img.getAttribute("src"));
-```
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### setAttribute ( name, value ) => void
 
 This method sets the value of the given attribute. It takes two arguments, the name of the attribute and the value that we want to give it. Let's try it with the src attribute.
-
-```js
-const newSrc = "assets/backgroundDessert.jpg";
-img.setAttribute("src", newSrc);
-```
-
-You can of course get or set any attribute that exist on the given element.
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -467,37 +345,11 @@ You can of course get or set any attribute that exist on the given element.
 
 This method removes the given attribute from the element.
 
-```html
-<button disabled>Click me</button>
-```
-
-This button has been disabled in the HTML document. With this method we could remove this attribute with JavaScript.
-
-```js
-const btn = document.querySelector("button");
-btn.removeAttribute("disabled");
-```
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### removeChild ( node ) => removed [node](#nodes) | null
 
 This method will remove an element's child. The argument is the node that should be removed, and it will return the node that was removed or null if it didn't work.
-
-```html
-<div class="to-be-removed">I will be removed.</div>
-```
-
-This element is located within the body and to get a reference to the body we can use `document.body`.
-
-```js
-const elementToRemove = document.querySelector(".to-be-removed");
-const removedElement = document.body.removeChild(elementToRemove);
-
-console.log(removedElement);
-```
-
-The child to be removed must be a direct child of the element in question. Otherwise it won't work.
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -505,34 +357,11 @@ The child to be removed must be a direct child of the element in question. Other
 
 This method replaces a child node of an element with a new node. It must be a direct child.
 
-```html
-<div class="to-be-replaced">I will be replaced</div>
-```
-
-```js
-const oldElement = document.querySelector(".to-be-replaced");
-const newElement = document.createElement("p");
-newElement.innerText = "I am the replacement";
-document.body.replaceChild(newElement, oldElement);
-```
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### classList
 
 `classList` is a array-like list _(DOMTokenList)_ of all the classes that have been applied to any given element. This list is read-only but there exists methods that you can use to manipulate this list.
-
-```html
-<article class="article bold main-color">This is an article</article>
-```
-
-```js
-const article = document.querySelector(".article.bold.main-color");
-console.log(article);
-
-const classes = article.classList;
-console.log(classes); // [article, bold, main-color]; + some extra stuff related to the DOMTokenList
-```
 
 This `DOMTokenList` has 13 available methods, we will look into four of them since they are most useful of them all.
 
@@ -548,21 +377,7 @@ This `DOMTokenList` has 13 available methods, we will look into four of them sin
 
 More methods exists, see the documentation - [DOMTokenList](https://www.w3schools.com/jsref/dom_obj_html_domtokenlist.asp)
 
-```js
-article.classList.add("warning"); // This will add 'warning' to the DOMTokenList
-
-article.classList.remove("warning"); // This will remove the 'warning' from the DOMTokenList IF the token exists.
-```
-
 If we want to check if an element has a specific class, we just the `contains()` method.
-
-```js
-const boldExists = article.classList.contains("bold");
-console.log(boldExists);
-
-const errorExists = article.classList.contains("error");
-console.log(errorExists);
-```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -570,47 +385,11 @@ console.log(errorExists);
 
 The style attribute is used to either get or set the inline styling of a HTML element. This styling has the highest specificity which means it will override basically any other styling except when styling is used together with `!important`.
 
-```html
-<p class="child2" style="color: red">child2</p>
-```
-
-This element has a `color` styling applied via the style tag. It will override any other `color` that has been set in a stylesheet.
-
-If you want to look at the style tag with JavaScript you just use dot-notation.
-
-```js
-const p = document.querySelector(".child2");
-console.log(p.style.color); // red
-```
-
-If you just want to look at the style object you can just do like this:
-
-```js
-console.log(p.style): //CSSStyleDeclaration Object
-```
-
-To change it with JavaScript we just use dot-notaion again together with the assignment operator `=` and pick the style and value that we want to change.
-
-```js
-p.style.textAlign = "end";
-```
-
-Changing styles like this works very well when working with dynamic code and you want to update the styling depending on the interaction from the user. Although you can also just add or remove classes to the elements as well if you want to change the styling dynamically.
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### tagName
 
 This property returns the name of the tag on the element, and it returns it in UPPERCASE.
-
-```html
-<button disabled>Click me</button>
-```
-
-```js
-const btn = document.querySelector("button");
-console.log(btn.tagName);
-```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -620,29 +399,11 @@ console.log(btn.tagName);
 
 The property returns a HTMLCollection of an element's child elements.
 
-```html
-<section class="parent">
-  <p class="child">child1</p>
-  <p class="child">child2</p>
-  <p class="child">child3</p>
-</section>
-```
-
-```js
-const section = document.querySelector(".parent");
-console.log(section.children);
-```
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### firstElementChild
 
 This property returns the first node that is of type element.
-
-```js
-const section = document.querySelector(".parent");
-console.log(section.firstElementChild);
-```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -650,34 +411,12 @@ console.log(section.firstElementChild);
 
 This property returns the last node that is of type element.
 
-```js
-const section = document.querySelector(".parent");
-console.log(section.lastElementChild);
-```
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### parentElement
 
 Returns the element that is the direct parent of the given element. It the element doesn't have a parent, then null will be returned.
 
-```html
-<section class="parent">
-  <article class="child">First element</article>
-  <article class="child">Second element</article>
-  <article class="child">Last element</article>
-</section>
-```
-
-```js
-const section = document.querySelector(".parent");
-children = section.children;
-
-const firstElement = children[0];
-console.log(firstElement); // <article class="child">First element</article>
-
-console.log(firstElement.parentElement); // <section class="parent">
-```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -685,22 +424,10 @@ console.log(firstElement.parentElement); // <section class="parent">
 
 Returns the element that comes directly after the given element on the same level in the DOM tree. If none exists, then null will be returned.
 
-```js
-const nextElementSibling = firstElement.nextElementSibling;
-console.log(nextElementSibling); // <article class="child">Second element</article>
-```
-
 [Back to Top](#javascript-dom-manipulation)
 
 ### previousElementSibling
 
 Return the element that comes directly before the given element on the same level in the DOM tree. If none exisist, then null will be returned.
-
-```js
-const secondElement = children[1];
-
-const previousElementSibling = secondElement.previousElementSibling;
-console.log(previousElementSibling); // <article class="child">First element</article>
-```
 
 [Back to Top](#javascript-dom-manipulation)
