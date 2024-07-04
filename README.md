@@ -307,11 +307,49 @@ inherited styles and styles that have been applied on the style attribute.
 This method creates an element node. This method is often used with the
 `document` since we are create an element to the DOM.
 
+```js
+const article = document.createElement("article");
+console.log(article);
+```
+
+This just creates the element, and it exists now in the memore but it's not attached to the DOM. Let's add some content:
+
+```js
+article.innerText = "This is an article";
+```
+
 [Back to Top](#javascript-dom-manipulation)
 
-### appendChild ( childNode ) => The appended [node](#nodes) 
+### appendChild ( childNode ) => The appended [node](#nodes)
 
 This method appends a node as the last child of an element.
+
+Fist we need an element, so let's use the one we already have.
+
+```js
+const article = document.createElement("article");
+```
+
+Then we need another element in order to attach our created element, let's use the body-element in this case since it's always there. You can access it on the document object.
+
+```js
+document.body.appendChild(article);
+```
+
+In most cases we don't want to use the body, so let's have some html from the start.
+
+This is our existing html:
+
+```html
+<section class="section"></section>
+```
+
+And now we add our article:
+
+```js
+const section = document.querySelector(".section");
+section.appendChild(article);
+```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -332,12 +370,40 @@ argument is the element that we want to insert. The available positions are:
 
 - `beforebegin`: Before the element
 
-- `beforeend`: Before the end of the element (last child) The element can be
-  created from scratch before insertion, or we could grab an existing element.
+- `beforeend`: Before the end of the element (last child)
+
+The element can be created from scratch before insertion, or we could grab an existing element.
+
+We have this HTML:
+
+```html
+<main class="main-content">
+  <p class="paragraph">This is a paragraph inside the main element</p>
+</main>
+```
+
+Let's create a new element, a div for instance.
+
+```js
+const div = document.createElement("div");
+div.innerText = "This is the inner text of the div";
+div.classList.add("div-content");
+```
+
+Now we can referenc the main element and then inject the `div` we created.
+
+```js
+const main = document.querySelector(".main-content");
+
+main.insertAdjacentElement("afterbegin", div);
+main.insertAdjacentElement("beforeend", div);
+main.insertAdjacentElement("beforebegin", div);
+main.insertAdjacentElement("afterend", div);
+```
 
 <details>
   <summary>Observe..</summary>
-  An unexpected behaviour happens when we do these two operations after each other. After the first invokation, _("afterend")_, the element is inserted after the section element, which is as expected. But when we do the second invokation with _"beforebegin"_ the element, as expected, is inserted before the section element, but the "previous" element disappears. That is because there is no previous element, it's the same element. Every element in the DOM is unique and if we do several operations on one element it will always move.
+  An unexpected behaviour happens when we do these operations after each other. After the first invokation, _("afterbegin")_, the element is inserted as the first child element of main, which is as expected. But when we do the second invokation with _"beforeend"_ the element, as expected, is inserted as the last child of the main element, but the "previous" element disappears. That is because there is no previous element, it's the same element. Every element in the DOM is unique and if we do several operations on one element it will always move.
 </details>
 
 ### insertAdjacentHTML ( position, html ) => void

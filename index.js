@@ -30,11 +30,36 @@
 // const firstParagraph = paragraphs[0];
 // console.log(firstParagraph);
 
-// ########## createElement and innerText ##########
+// ########## createElement, appendChild, classList ##########
+// const article = document.createElement("article");
 
-// ########## appendChild ##########
+// // Let's add a text
+// article.innerText = "This is an article";
 
-// ########## insertAdjecentElement ##########
+// // Let's add a class
+// article.classList.add("green-bg", "show");
+
+// // It was overkill with the class show, let's remove it
+// article.classList.remove("show");
+
+// console.log(article);
+// console.log(article.classList);
+
+// const section = document.querySelector(".section");
+// section.appendChild(article);
+
+// ########## insertAdjacentElement ##########
+
+// const div = document.createElement("div");
+// div.innerText = "This is the inner text of the div";
+// div.classList.add("div-content");
+
+// const main = document.querySelector(".main-content");
+
+// main.insertAdjacentElement("afterbegin", div);
+// main.insertAdjacentElement("beforeend", div);
+// main.insertAdjacentElement("beforebegin", div);
+// main.insertAdjacentElement("afterend", div);
 
 // ########## insertAdjecentHTML ##########
 
@@ -64,18 +89,18 @@
 // ########## lastElementChild ##########
 
 // ########## getComputedStyle, style ##########
-const paragraph = document.querySelector(".paragraph");
-console.log(paragraph);
+// const paragraph = document.querySelector(".paragraph");
+// console.log(paragraph);
 
-// set color to red
-paragraph.style.color = "red";
+// // set color to red
+// paragraph.style.color = "red";
 
-console.log("color of p tag is: ", paragraph.style.color);
+// console.log("color of p tag is: ", paragraph.style.color);
 
-// set font-size to 2rem
-paragraph.style.fontSize = "2rem";
+// // set font-size to 2rem
+// paragraph.style.fontSize = "2rem";
 
-console.log(paragraph.style);
+// console.log(paragraph.style);
 
 // ########## classList ##########
 

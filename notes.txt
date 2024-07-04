@@ -2,9 +2,9 @@ Priolista:
 
 querySelector
 querySelectorAll
-createElement
 innerText
 style
+createElement
 classList
 appendChild
-insertAdjecentHTML
+insertAdjecentElement
