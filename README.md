@@ -97,7 +97,7 @@ All properties and methods are available on these webpages:
 6. **Node tree**
 
    - The hierarchical structure of nodes in a documnet.
-   - Each node has a parent, zero or more children and may many siblings.
+   - Each node has a parent, zero or more children and may have many siblings.
 
 [Back to Top](#javascript-dom-manipulation)
 
