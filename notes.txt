@@ -1,0 +1,10 @@
+Priolista:
+
+querySelector
+querySelectorAll
+createElement
+innerText
+style
+classList
+appendChild
+insertAdjecentHTML

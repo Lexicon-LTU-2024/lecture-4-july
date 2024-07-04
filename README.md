@@ -64,6 +64,8 @@ All properties and methods are available on these webpages:
 
 - [w3schools Documents](https://www.w3schools.com/jsref/dom_obj_document.asp)
 
+- [MDN Docs DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)
+
 [Back to Top](#javascript-dom-manipulation)
 
 ### Key concepts of the DOM
@@ -214,9 +216,20 @@ In most cases the search area for these methods are the entire document, and if 
 
 This method returns an element with the specified Id value. It will return null if the element doesn't exists, and if more elements with the same Id exsits in the DOM, the first match will be returned. **Note**, Id should always be unique.
 
+```js
+const mainContainer = document.getElementById("main-container");
+
+console.log(mainContainer);
+```
+
 [Back to Top](#javascript-dom-manipulation)
 
 ### getElementByClassName ( className ) => [HTMLCollection](#htmlcollection)
+
+```js
+const pTags = document.getElementsByClassName("content");
+console.log(pTags);
+```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -234,17 +247,56 @@ This method returns the first element that matches your given CSS selector. This
 
 If no match is found, this method will throw an error _(SYNTAX_ERROR)_. Or rather if the selector is invalid.
 
+```html
+<div class="item">This is a text item</div>
+<section id="main-section">
+  <p class="para">Lorem Ipsum</p>
+  <p class="para">Lorem Ipsum Lorem Ipsum</p>
+  <p class="para">Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
+  <span class="item">This is a span item inside the section</span>
+</section>
+```
+
+```js
+const item = document.querySelector(".item");
+console.log(item);
+
+const mainSection = document.querySelector("#main-section");
+console.log(mainSection);
+
+// alternative 1 ( searching from the top )
+const nestedItem = document.querySelector("#main-section .item");
+console.log(nestedItem);
+
+// alternative 2 ( searching from parent element )
+const nestedItem2 = mainSection.querySelector(".item");
+console.log(nestedItem2);
+```
+
+QuerySelector is applicable on HTML elements as well as on the document object.
+
 [Back to Top](#javascript-dom-manipulation)
 
 ### querySelectorAll ( CSSSelector ) => [NodeList](#nodelist)
 
-This method returns all matches of the specific css selector, and it collects them inside a `NodeList` and returns that `NodeList`.
+This method returns all matches of the specific css selector, and it collects
+them inside a `NodeList` and returns that `NodeList`.
+
+```js
+const paragraphs = document.querySelectorAll(".para");
+console.log(paragraphs);
+
+const firstParagraph = paragraphs[0];
+console.log(firstParagraph);
+```
 
 [Back to Top](#javascript-dom-manipulation)
 
-### window.getComputedStyle ( element ) => CSSStyleDeclaration
+### window.getComputedStyle ( element ) => CSSStyleDeclaration This method takes in an argument that
 
-This method takes in an argument that is a HTML element and returns a special CSS object, containing all the styles that have been applied to the specific element. This includes, external and internal stylesheets, browser default styles, inherited styles and styles that have been applied on the style attribute.
+is a HTML element and returns a special CSS object, containing all the styles that have been applied
+to the specific element. This includes, external and internal stylesheets, browser default styles,
+inherited styles and styles that have been applied on the style attribute.
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -252,58 +304,77 @@ This method takes in an argument that is a HTML element and returns a special CS
 
 ### createElement ( tagAsString ) => [HTML Element](#element)
 
-This method creates an element node. This method is often used with the `document` since we are create an element to the DOM.
+This method creates an element node. This method is often used with the
+`document` since we are create an element to the DOM.
 
 [Back to Top](#javascript-dom-manipulation)
 
-### appendChild ( childNode ) => The appended [node](#nodes)
+### appendChild ( childNode ) => The appended [node](#nodes) 
 
 This method appends a node as the last child of an element.
 
 [Back to Top](#javascript-dom-manipulation)
 
-### append ( node1, node2, node3... ) => void
+### append ( node1, node2, node3...) => void
 
 [Back to Top](#javascript-dom-manipulation)
 
 ### insertAdjacentElement ( position, element) => void
 
-This method inserts an element into a specified position. The first argument is the position in which we will insert the element and this postition comes in four alternatives. The second argument is the element that we want to insert.
+This method inserts an element into a specified position. The first argument is the position
+in which we will insert the element and this postition comes in four alternatives. The second
+argument is the element that we want to insert. The available positions are:
 
-The available positions are:
+- `afterbegin`: insert
+  after the beginning of the element (first child)
 
-- `afterbegin`: insert after the beginning of the element (first child)
 - `afterend`: After the element
-- `beforebegin`: Before the element
-- `beforeend`: Before the end of the element (last child)
 
-The element can be created from scratch before insertion, or we could grab an existing element.
+- `beforebegin`: Before the element
+
+- `beforeend`: Before the end of the element (last child) The element can be
+  created from scratch before insertion, or we could grab an existing element.
 
 <details>
-<summary>Observe..</summary>
-An unexpected behaviour happens when we do these two operations after each other. After the first invokation, _("afterend")_, the element is inserted after the section element, which is as expected. But when we do the second invokation with _"beforebegin"_ the element, as expected, is inserted before the section element, but the "previous" element disappears. That is because there is no previous element, it's the same element. Every element in the DOM is unique and if we do several operations on one element it will always move.
+  <summary>Observe..</summary>
+  An unexpected behaviour happens when we do these two operations after each other. After the first invokation, _("afterend")_, the element is inserted after the section element, which is as expected. But when we do the second invokation with _"beforebegin"_ the element, as expected, is inserted before the section element, but the "previous" element disappears. That is because there is no previous element, it's the same element. Every element in the DOM is unique and if we do several operations on one element it will always move.
 </details>
 
 ### insertAdjacentHTML ( position, html ) => void
 
-This method works exactly the same as `insetAdjacentElement` but with the difference that it accepts a html element as a string instead of some data of the type element.
+This method works exactly the same as `insetAdjacentElement` but with the difference that it accepts a html element as a string instead of
+some data of the type element.
 
 <details>
-<summary>Observe..</summary>
-In this case the string is not an actual DOM object, so it's not unique in the same was as in the previos example with `insertAdjacentElement`. So by executing these two lines of code, two insertions will be made and both will be visible in the DOM.
+  <summary>Observe..</summary>
+  In this case the string is not an actual DOM object, so it's not unique in the same was as in the previos example with `insertAdjacentElement`. So by executing these two lines of code, two insertions will be made and both will be visible in the DOM.
 </details>
 
 ## Modifying elements and nodes
 
 ### innerHTML
 
-This property sets or gets the `innerHTML` of an element. When we get the innerHTML the actual HTML-tags and its content _(classes, attribute etc)_ is included.
+This property sets or gets the `innerHTML` of an element. When we get the innerHTML the actual HTML-tags and its content _(classes, attribute etc)_
+is included.
 
 ### innerText
 
-This property is used to either set or get the text content of an element. If you want to set a value with this property, be careful, because it will replace all innerText with the new value that you give it.
+This property is used to either set or get the text content of an
+element. If you want to set a value with this property, be careful, because it will replace all innerText with the new value that you give it. When getting the `innerText` all specific HTML will we ignored.
 
-When getting the `innerText` all specific HTML will we ignored.
+```html
+<article class="article">This is an article</article>
+```
+
+```js
+const article = document.querySelector(".article");
+
+console.log(article);
+console.log(article.innerText);
+
+article.innerText = "This is the modified version of the article";
+console.log(article.innerText);
+```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -315,23 +386,33 @@ Basically this attribute works in the same was as innerText but there are some d
 
 `innerText`
 
-1. Ignores elements with `display: none` or other styles that make them not visible.
+1. Ignores elements with `display: none` or other
+   styles that make them not visible.
+
 2. Takes into account the current style of the element.
+
 3. Only provides the visible text content as it appears in the screen.
 
 `textContent`
 
-1. Returns all text content within an element, regardless of styling or visibility.
-2. Includes text content within element that are hidden _(e.g. `display: none`)_
-3. Does not consider the current style of the element.
+1. Returns all text
+   content within an element, regardless of styling or visibility.
 
-Most of the times these are used interchangeably but the usage should be based on the specific requirements. If you need to consider the styling, use `innerText`, otherwise you can use `textContent`.
+2. Includes text content within
+   element that are hidden _(e.g. `display: none`)_
+
+3. Does not consider the current style of the
+   element. Most of the times these are used interchangeably but the usage should be based on the
+   specific requirements.
+
+If you need to consider the styling, use `innerText`, otherwise you can use
+`textContent`.
 
 [Back to Top](#javascript-dom-manipulation)
 
-### getAttribute ( name ) => string | null
+### getAttribute ( name ) => string |
 
-This method will return the given value on a specific attribute on an element.
+null This method will return the given value on a specific attribute on an element.
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -345,7 +426,7 @@ This method sets the value of the given attribute. It takes two arguments, the n
 
 This method removes the given attribute from the element.
 
-[Back to Top](#javascript-dom-manipulation)
+[Backto Top](#javascript-dom-manipulation)
 
 ### removeChild ( node ) => removed [node](#nodes) | null
 
@@ -361,7 +442,8 @@ This method replaces a child node of an element with a new node. It must be a di
 
 ### classList
 
-`classList` is a array-like list _(DOMTokenList)_ of all the classes that have been applied to any given element. This list is read-only but there exists methods that you can use to manipulate this list.
+`classList` is a array-like list _(DOMTokenList)_ of all the classes that have been applied to any given element. This list is read-only but there
+exists methods that you can use to manipulate this list.
 
 This `DOMTokenList` has 13 available methods, we will look into four of them since they are most useful of them all.
 
@@ -369,21 +451,56 @@ This `DOMTokenList` has 13 available methods, we will look into four of them sin
 
 - `add(token, token...) => void`: Adds one or more tokens to the `DOMTokenList`. A token here means a class basically.
 
-- `remove(token, token...) => void`: Removes one or more tokens from the `DOMTokenList`.
+- `remove(token, token...) => void`: Removes one or more tokens from the
+  `DOMTokenList`.
 
-- `contains(token) => boolean`: Returns true or false if a token _(class)_ is present in the `DOMTokenList`.
+- `contains(token) => boolean`: Returns true or false if a token
+  _(class)_ is present in the `DOMTokenList`.
 
 - `toggle(token) => void`: Toggles a token inside the `DOMTokenList`.
 
 More methods exists, see the documentation - [DOMTokenList](https://www.w3schools.com/jsref/dom_obj_html_domtokenlist.asp)
 
-If we want to check if an element has a specific class, we just the `contains()` method.
-
-[Back to Top](#javascript-dom-manipulation)
+[Back toTop](#javascript-dom-manipulation)
 
 ### style
 
-The style attribute is used to either get or set the inline styling of a HTML element. This styling has the highest specificity which means it will override basically any other styling except when styling is used together with `!important`.
+The style attribute is used to either get or set the
+inline styling of a HTML element. This styling has the highest specificity which means it will override basically any other styling except when styling is used together with `!important`.
+
+```html
+<p class="paragraph" style="color: red">This is a paragraph</p>
+```
+
+This element has a `color` styling applied via the style tag. It will override any other `color` that has been set in a stylesheet.
+
+If you want to look at the style tag with JavaScript you just use dot-notation.
+
+```js
+const paragraph = document.querySelector(".paragraph");
+console.log("color of p tag is: ", paragraph.style.color); // red
+```
+
+If you just want to look at the style object you can just do like this:
+
+```js
+console.log(paragraph.style); // Shows the entire style object
+```
+
+To change it with JavaScript we just use dot-notaion again together with the assignment operator `=` and pick the style and value that we want to change.
+
+```js
+const paragraph = document.querySelector(".paragraph");
+console.log(paragraph);
+
+// set color to green
+paragraph.style.color = "green";
+
+// set font-size to 2rem
+paragraph.style.fontSize = "2rem";
+```
+
+Changing styles like this works very well when working with dynamic code and you want to update the styling depending on the interaction from the user. Although you can also just add or remove classes to the elements as well if you want to change the styling dynamically.
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -403,7 +520,7 @@ The property returns a HTMLCollection of an element's child elements.
 
 ### firstElementChild
 
-This property returns the first node that is of type element.
+This property returns the first node thatis of type element.
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -415,19 +532,21 @@ This property returns the last node that is of type element.
 
 ### parentElement
 
-Returns the element that is the direct parent of the given element. It the element doesn't have a parent, then null will be returned.
-
+Returns the element that is the direct parent of the given element. It the element
+doesn't have a parent, then null will be returned.
 
 [Back to Top](#javascript-dom-manipulation)
 
-### nextElementSibling
+###nnextElementSibling
 
-Returns the element that comes directly after the given element on the same level in the DOM tree. If none exists, then null will be returned.
+Returns the element that comes directly after the given element on the same level
+in the DOM tree. If none exists, then null will be returned.
 
 [Back to Top](#javascript-dom-manipulation)
 
 ### previousElementSibling
 
-Return the element that comes directly before the given element on the same level in the DOM tree. If none exisist, then null will be returned.
+Return the element that comes directly
+before the given element on the same level in the DOM tree. If none exisist, then null will be returned.
 
 [Back to Top](#javascript-dom-manipulation)
