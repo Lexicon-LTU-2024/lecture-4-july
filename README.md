@@ -56,7 +56,7 @@
 
 ## DOM
 
-The DOM is an abbreviation of `Document Object Model` and it represents the structure and content of a HTML document as a tree of objects, where each object corresponds to a part of the document. These parts can be elements, attributes, text content, comments and more. The DOM acts as an interface that programs can interact with and manipu;ate the content, re-structure the styles and many more things. Everyting inside the HTML document can be manipulate via this interface that is the `Document Object Model`.
+The DOM is an abbreviation of `Document Object Model` and it represents the structure and content of a HTML document as a tree of objects, where each object corresponds to a part of the document. These parts can be elements, attributes, text content, comments and more. The DOM acts as an interface that programs can interact with and manipulate the content, re-structure the styles and many more things. Everyting inside the HTML document can be manipulate via this interface that is the `Document Object Model`.
 
 All properties and methods are available on these webpages:
 
