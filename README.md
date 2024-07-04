@@ -49,7 +49,7 @@
 - [Traversing the DOM](#traversing-the-dom)
   - [children](#children)
   - [firstElementChild](#firstelementchild)
-  - [firstElelementChild](#lastelementchild)
+  - [lastElementChild](#lastelementchild)
   - [parentElement](#parentelement)
 
 </details>
