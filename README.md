@@ -294,9 +294,18 @@ console.log(firstParagraph);
 
 ### window.getComputedStyle ( element ) => CSSStyleDeclaration
 
-This method takes in an argument that is a HTML element and returns a special CSS object, containing all the styles that have been applied
-to the specific element. This includes, external and internal stylesheets, browser default styles,
+This method takes in an argument that is a HTML element and returns a special CSS object, containing all the styles that have been applied to the specific element. This includes, external and internal stylesheets, browser default styles,
 inherited styles and styles that have been applied on the style attribute.
+
+```html
+<p class="paragraph">Regular Paragraph</p>
+```
+
+```js
+const p = document.querySelector(".paragraph");
+const styles = window.getComputedStyle(p);
+console.log(styles.color);
+```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -406,15 +415,41 @@ main.insertAdjacentElement("afterend", div);
   An unexpected behaviour happens when we do these operations after each other. After the first invokation, _("afterbegin")_, the element is inserted as the first child element of main, which is as expected. But when we do the second invokation with _"beforeend"_ the element, as expected, is inserted as the last child of the main element, but the "previous" element disappears. That is because there is no previous element, it's the same element. Every element in the DOM is unique and if we do several operations on one element it will always move.
 </details>
 
+[Back to Top](#javascript-dom-manipulation)
+
 ### insertAdjacentHTML ( position, html ) => void
 
-This method works exactly the same as `insetAdjacentElement` but with the difference that it accepts a html element as a string instead of
-some data of the type element.
+This method works exactly the same as `insetAdjacentElement` but with the difference that it accepts a html element as a string instead of some data of the type element.
 
-<details>
-  <summary>Observe..</summary>
-  In this case the string is not an actual DOM object, so it's not unique in the same was as in the previos example with `insertAdjacentElement`. So by executing these two lines of code, two insertions will be made and both will be visible in the DOM.
-</details>
+Let's create a very simple todo list with some elements.
+
+```html
+<section class="todo-list">
+  <p>Earn a millon dollars</p>
+  <p>Buy a ferrari</p>
+  <p>Travel the world</p>
+</section>
+```
+
+Let's insert a new element with the help of `insertAdjacentHTML` and put it at the beginning of the list.
+
+```js
+const newTodo = `<p>Become CEO</p>`;
+
+const todoList = document.querySelector(".todo-list");
+todoList.insertAdjacentHTML("afterbegin", newTodo);
+```
+
+But if we do this, we add it twice, what will happen?
+
+```js
+todoList.insertAdjacentHTML("afterbegin", newTodo);
+todoList.insertAdjacentHTML("beforeend", newTodo);
+```
+
+Two elements are created, and that is because, in this case the string is not an actual DOM object, so it's not unique in the same was as in the previos example with `insertAdjacentElement`. So by executing these two lines of code, two insertions will be made and both will be visible in the DOM.
+
+[Back to Top](#javascript-dom-manipulation)
 
 ## Modifying elements and nodes
 
@@ -443,7 +478,9 @@ const p = document.querySelector(".paragraph");
 console.log(p);
 ```
 
-If we would try to use `innerText` in this case it won't work. That is because `innerHTML` can actually parse html-specific syntax in strings to valid HTML, wheras `innerHTML` can not.
+If we would try to use `innerText` in this case it won't work. That is because `innerHTML` can actually parse html-specific syntax in strings to valid HTML, wheras `innerText` can not.
+
+[Back to Top](#javascript-dom-manipulation)
 
 ### innerText
 
@@ -557,11 +594,47 @@ This method removes the given attribute from the element.
 
 This method will remove an element's child. The argument is the node that should be removed, and it will return the node that was removed or null if it didn't work.
 
+Let's consider the example with a simple todolist:
+
+```html
+<h2>TodoList</h2>
+<section class="todo-list">
+  <p>Earn a millon dollars</p>
+  <p>Buy a ferrari</p>
+  <p>Travel the world</p>
+</section>
+```
+
+Usually you can remove todos with some sort of button but we will just do it programatically. Firstly we need to reference the element we want to remove, in this case we use the property `children` in order to get a reference to all p-tags.
+
+```js
+const todoList = document.querySelector(".todo-list");
+const children = todoList.children;
+console.log(children);
+```
+
+Now remove the second element of the children list.
+
+```js
+todoList.removeChild(children[1]);
+```
+
 [Back to Top](#javascript-dom-manipulation)
 
 ### replaceChild ( newNode, oldNode ) => replaced [node](#nodes)
 
 This method replaces a child node of an element with a new node. It must be a direct child.
+
+Let's reuse the html from above, and let's replace the first element with something else. First we need to create an actual element, we can't just use a string here.
+
+```js
+const newTodoToInsert = document.createElement("p");
+newTodoToInsert.innerText = "donate 100k dollars to an italian refugee in Sweden";
+
+const todoToReplace = children[0]; // Earn a millon dollars
+
+todoList.replaceChild(newTodoToInsert, todoToReplace);
+```
 
 [Back to Top](#javascript-dom-manipulation)
 
@@ -662,7 +735,7 @@ doesn't have a parent, then null will be returned.
 
 [Back to Top](#javascript-dom-manipulation)
 
-###nnextElementSibling
+### nextElementSibling
 
 Returns the element that comes directly after the given element on the same level
 in the DOM tree. If none exists, then null will be returned.

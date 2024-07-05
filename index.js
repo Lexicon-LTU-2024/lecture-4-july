@@ -1,11 +1,40 @@
-// ########## innerHTML ##########
-
-const innerHtmlOfDiv = `<p class="paragraph">This is a p tag inserted with innerHTML</p>`;
-const div = document.querySelector(".content");
-div.innerHTML = innerHtmlOfDiv;
-
+// ########## getComputedStyle ##########
 const p = document.querySelector(".paragraph");
-console.log(p);
+const styles = window.getComputedStyle(p);
+console.log(styles.color);
+console.log(styles.backgroundColor);
+
+console.log("window: ", window);
+
+// ########## removeChild, replaceChild, children ##########
+// const todoList = document.querySelector(".todo-list");
+// const children = todoList.children;
+// console.log(children);
+
+// todoList.removeChild(children[1]);
+
+// // Let's use replace
+// const newTodoToInsert = document.createElement("p");
+// newTodoToInsert.innerText = "donate 100k dollars to an italian refugee in Sweden";
+
+// const todoToReplace = children[0]; // Earn a millon dollars
+
+// todoList.replaceChild(newTodoToInsert, todoToReplace);
+
+// ########## inserAdjacentHTML ##########
+// const newTodo = `<p>Become CEO</p>`;
+
+// const todoList = document.querySelector(".todo-list");
+// todoList.insertAdjacentHTML("afterbegin", newTodo);
+// todoList.insertAdjacentHTML("beforeend", newTodo);
+
+// ########## innerHTML ##########
+// const innerHtmlOfDiv = `<p class="paragraph">This is a p tag inserted with innerHTML</p>`;
+// const div = document.querySelector(".content");
+// div.innerHTML = innerHtmlOfDiv;
+
+// const p = document.querySelector(".paragraph");
+// console.log(p);
 
 // ########## getElementById ##########
 // const mainContainer = document.getElementById("main-container");
