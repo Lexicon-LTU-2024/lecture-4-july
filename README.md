@@ -22,8 +22,8 @@
   - [getElementByClassName](#getelementbyclassname--classname---htmlcollection)
   - [getElementsByName](#getelementsbyname--name---nodelist)
   - [getElementsByTagname](#getelementsbytagname--tagname---htmlcollection)
-  - [querySelector](#queryselector--query---html-element)
-  - [querySelectorAll](#queryselectorall--query---nodelist)
+  - [querySelector](#queryselector--cssselector---html-element)
+  - [querySelectorAll](#queryselectorall--cssselector---nodelist)
   - [window.getComputedStylel](#windowgetcomputedstyle--element---cssstyledeclaration)
 
 - [Create elements and nodes](#create-elements-and-nodes)
@@ -292,9 +292,9 @@ console.log(firstParagraph);
 
 [Back to Top](#javascript-dom-manipulation)
 
-### window.getComputedStyle ( element ) => CSSStyleDeclaration This method takes in an argument that
+### window.getComputedStyle ( element ) => CSSStyleDeclaration
 
-is a HTML element and returns a special CSS object, containing all the styles that have been applied
+This method takes in an argument that is a HTML element and returns a special CSS object, containing all the styles that have been applied
 to the specific element. This includes, external and internal stylesheets, browser default styles,
 inherited styles and styles that have been applied on the style attribute.
 
@@ -420,8 +420,30 @@ some data of the type element.
 
 ### innerHTML
 
-This property sets or gets the `innerHTML` of an element. When we get the innerHTML the actual HTML-tags and its content _(classes, attribute etc)_
-is included.
+This property sets or gets the `innerHTML` of an element. When we get the innerHTML the actual HTML-tags and its content _(classes, attribute etc)_ is included.
+
+```html
+<div class="content"></div>
+```
+
+Let's add some html inside this div, but we are not going to create it with `createElement`, we are just going to create a string that looks like html.
+
+```js
+const innerHtmlOfDiv = `<p class="paragraph">This is a p tag inserted with innerHTML</p>`;
+```
+
+Now we insert it inside the div with class content.
+
+```js
+const div = document.querySelector(".content");
+div.innerHTML = innerHtmlOfDiv;
+
+// Let's access it right away
+const p = document.querySelector(".paragraph");
+console.log(p);
+```
+
+If we would try to use `innerText` in this case it won't work. That is because `innerHTML` can actually parse html-specific syntax in strings to valid HTML, wheras `innerHTML` can not.
 
 ### innerText
 
@@ -476,9 +498,46 @@ If you need to consider the styling, use `innerText`, otherwise you can use
 
 [Back to Top](#javascript-dom-manipulation)
 
-### getAttribute ( name ) => string |
+### getAttribute ( name ) => string | null
 
-null This method will return the given value on a specific attribute on an element.
+This method will return the given value on a specific attribute on an element.
+
+```html
+<figure>
+  <img class="image" src="assets/background1.jpg" alt="City Image" />
+</figure>
+```
+
+Given the html above, let's try and get the value of both the src attribute and the alt attribute.
+
+```js
+const image = document.querySelector(".image");
+console.log(image.getAttribute("src"));
+console.log(image.getAttribute("alt"));
+```
+
+If we want to change the value dynamically, we can use the `setAttribute` method.
+
+```js
+image.setAttribute("src", "assets/backgroundDessert.jpg");
+image.setAttribute("alt", "Desser");
+
+console.log(image.getAttribute("src"));
+console.log(image.getAttribute("alt"));
+```
+
+All good, let's add a new attribute that don't exists.
+
+```js
+image.setAttribute("width", "400px");
+```
+
+Now let's remove it again:
+
+```js
+image.removeAttribute("alt");
+console.log(image.getAttribute("alt"));
+```
 
 [Back to Top](#javascript-dom-manipulation)
 

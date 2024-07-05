@@ -1,3 +1,12 @@
+// ########## innerHTML ##########
+
+const innerHtmlOfDiv = `<p class="paragraph">This is a p tag inserted with innerHTML</p>`;
+const div = document.querySelector(".content");
+div.innerHTML = innerHtmlOfDiv;
+
+const p = document.querySelector(".paragraph");
+console.log(p);
+
 // ########## getElementById ##########
 // const mainContainer = document.getElementById("main-container");
 // console.log(mainContainer);
@@ -104,9 +113,21 @@
 
 // ########## classList ##########
 
-// ########## getAttribute, setAttribute ##########
+// ########## getAttribute, setAttribute, removeAttribute ##########
+// const image = document.querySelector(".image");
+// console.log(image.getAttribute("src"));
+// console.log(image.getAttribute("alt"));
 
-// ########## removeAttribute ##########
+// image.setAttribute("src", "assets/backgroundDessert.jpg");
+// image.setAttribute("alt", "Desser");
+
+// console.log(image.getAttribute("src"));
+// console.log(image.getAttribute("alt"));
+
+// image.setAttribute("width", "400px");
+
+// image.removeAttribute("alt");
+// console.log(image.getAttribute("alt"));
 
 // ########## tagName ##########
 
